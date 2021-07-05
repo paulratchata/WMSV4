@@ -1,0 +1,16 @@
+.printArea {
+  border: black solid 2px;
+}
+.tdBold {
+  font-size: larger;
+  font-weight: bold;
+}
+
+h1 {
+  margin-top: 15px;
+}
+
+.delivCard {
+  background-image: url("../../../../assets/images/bg-delivery.jpg");
+  background-size: cover;
+}

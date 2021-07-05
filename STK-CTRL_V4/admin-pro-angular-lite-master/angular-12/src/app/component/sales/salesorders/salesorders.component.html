@@ -1,0 +1,175 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">PENDING</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <button type="button" class="btn btn-primary" data-backdrop="static" data-keyboard="false"
+          (click)="creatSo(createSOForm)">Add SO.</button>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+    <form>
+      <div class="form-group form-inline">
+        Full text search: <input class="form-control ml-2" type="text" [formControl]="filter" />
+      </div>
+    </form>
+  </div>
+</nav>
+<!-- end nav -->
+<table class="table-dark table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>DATE</th>
+      <th>SO No.</th>
+      <th>INV</th>
+      <th>DD</th>
+      <th>SKU</th>
+      <th>QTY</th>
+      <th>UNIT</th>
+      <th>DELVERY</th>
+      <th>STATUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let so of so_data; index as s">
+      <th>{{s+1}}</th>
+      <td>{{so.date?.toMillis() | date: 'dd/MM/YY'}}</td>
+      <td>{{so.so_number}}</td>
+      <td>{{so.inv_number}}</td>
+      <td>{{so.dd_number}}</td>
+      <td>
+        <div *ngFor="let item of so.sku; index as i">
+          {{item.skuCode}}
+        </div>
+      </td>
+      <td>
+        <div *ngFor="let item of so.sku; index as i">
+          {{item.qty}}
+        </div>
+      </td>
+      <td>
+        <div *ngFor="let item of so.sku; index as i">
+          {{item.unit}}
+        </div>
+      </td>
+      <td>{{so.transport}}</td>
+      <td>{{so.status}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Create SO Modal -->
+<ng-template #createSOForm let-modal>
+  <div class="container-fluid">
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">SO. RECORD</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- form section -->
+    <div class="modal-body">
+
+      <form [formGroup]="soForm">
+
+        <label for="customer">CUSTOMER</label>
+        <select id="customer" class="custom-select" formControlName="customer">
+          <option *ngFor="let customer of customers" [value]="customer">{{customer}}</option>
+        </select>
+        <hr>
+
+        <div class="row" *ngIf="soForm.value.customer">
+          <div class="col-12">
+            <p style="color: cornflowerblue;">Document Referrences</p>
+          </div>
+          <div class="col-4">
+            <label for="so">SO NO.</label>
+            <input class="form-control" formControlName="so_number" type="text" id="so" placeholder="EX. SO123456">
+          </div>
+          <!-- <div class="col-4">
+            <label for="inv">INV NO.</label>
+            <input class="form-control" formControlName="inv_number" type="text" id="inv" placeholder="EX. INV123456">
+          </div> -->
+          <!-- <div class="col-4">
+            <label for="dd">DD NO.</label>
+            <input class="form-control" formControlName="dd_number" type="text" id="dd" placeholder="EX. DD123456">
+          </div> -->
+
+          <div class="col-12">
+            <br>
+            <label for="transport">TRANSPORT</label>
+            <select id="transport" class="custom-select" formControlName="transport">
+              <option value="LOCAL DISPATCH">LOCAL DISPATCH</option>
+              <option value="LAND TRANSPORT">LAND TRANSPORT</option>
+              <option value="BLACK WRAP">BLACK WRAP</option>
+              <option value="SHIPPING">SHIPPING</option>
+              <option value="OWN PICKUP">OWN PICKUP</option>
+            </select>
+          </div>
+        </div>
+
+        <hr>
+        <!-- dynamic sku adding -->
+        <div class="row" *ngIf="soForm.value.customer">
+          <div formArrayName="sku">
+            <div *ngFor="let product of skuList.controls;index as i" [formGroupName]="i">
+              <div class="row">
+                <div class="col-3">
+                  <label for="sku">SKU #{{i+1}}</label>
+                  <select id="sku" class="custom-select" formControlName="skuCode">
+                    <option *ngFor="let product of products" [value]="product?.SKU_CODE">{{product?.SKU_CODE}}</option>
+                  </select>
+                </div>
+                <div class="col-3">
+                  <label for="qty" QTY>QTY</label>
+                  <input class="form-control" type="number" min="1" id="qty" formControlName="qty">
+                </div>
+                <div class="col-3">
+                  <label for="unit" QTY>UNIT</label>
+                  <select id="unit" class="custom-select" formControlName="unit">
+                    <option value="BALES">BALES</option>
+                    <option value="BAGS">BAGS</option>
+                    <option value="CRTNS">CRTNS</option>
+                    <option value="PACKET">PACKET</option>
+                    <option value="BUNDLES">BUNDLES</option>
+                  </select>
+                </div>
+                <div class="col-3">
+                  <br>
+                  <button (click)="delSku(i)" type="button" id="rem" class="btn btn-outline-warning">X</button>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                <button (click)="addSku()" type="button" class="btn btn-outline-primary"> + Products</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div *ngIf="soForm.valid; else submitBlock" class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="modal.close('Save')">Submit</button>
+      <button type="button" class="btn btn-outline-warning" (click)="modal.close('Cancel')">Cancel</button>
+    </div>
+    <ng-template #submitBlock>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-warning" (click)="modal.close('Cancel')">Cancel</button>
+        <!-- <button type="button" class="btn btn-primary" (click)="modal.close('Save')">Submit</button> -->
+      </div>
+    </ng-template>
+  </div>
+</ng-template>

@@ -1,0 +1,26 @@
+test
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">DATE</th>
+      <th scope="col">SKU</th>
+      <th scope="col">QTY</th>
+      <th scope="col">UNLOAD SUP</th>
+      <th>PRINT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tag of rcvTags | async;index as i">
+      <th scope="row">{{i+1}}</th>
+      <td>{{tag.date.toMillis() | date}}</td>
+      <td>{{tag.sku}}</td>
+      <td>{{tag.qty}}</td>
+      <td>{{tag.user}}</td>
+      <td>
+        <button (click)="printtags(tag.id)" class="btn btn-primary"><i class="fas fa-print"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

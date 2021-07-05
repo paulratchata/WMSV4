@@ -1,0 +1,55 @@
+<p>Please enter each SKUs separately</p>
+
+<form autocomplete="off" [formGroup]="cdrForm">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <label for="typeahead-focus">SKU</label>
+        <input id="typeahead-focus" type="text" formControlName="sku" class="form-control" [(ngModel)]="model"
+          [ngbTypeahead]="search" (focus)="focus$.next($any($event).target.value)"
+          (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead" />
+      </div>
+      <div class="form-group col-2">
+        <label for="qty">QTY</label>
+        <input formControlName="qty" type="number" class="form-control" id="qty">
+      </div>
+
+      <div class="col-3">
+        <label for="unit">UNIT</label>
+        <div class="col-6">
+          <select formControlName="unit" class="custom-select" id="unit">
+            <option disabled selected>Choose...</option>
+            <!-- <option value="BALES">BALES</option>
+            <option value="BAGS">BAGS</option> -->
+            <option value="CRTN">CRTN</option>
+            <option value="PACKET">PACKET</option>
+          </select>
+        </div>
+      </div>
+      <!--  -->
+      <div class="form-group col-5">
+        <label for="customer">CUSTOMER</label>
+        <input formControlName="customer" type="text" class="form-control" id="customer">
+      </div>
+      <!-- <div class="col-3">
+        <label for="location">LOCATION</label>
+        <div class="col-6">
+          <select formControlName="location" class="custom-select" id="location">
+            <option selected>Choose...</option>
+            <option value="CONT1">CONT1</option>
+            <option value="CONT2">CONT2</option>
+            <option value="CONT3">CONT3</option>
+            <option value="CONT4">CONT4</option>
+          </select>
+        </div>
+      </div> -->
+    </div>
+    <button (click)="submit()" *ngIf="cdrForm.valid; else invalidBlock" type="submit"
+      class="btn btn-primary">Submit</button>
+    <ng-template #invalidBlock>
+      <button type="button" class="btn btn-secondary btn-lg" disabled>Submit</button>
+    </ng-template>
+  </div>
+</form>
+
+<!-- {{cdrForm.value | json}} -->

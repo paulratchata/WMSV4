@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <!-- <button (click)="printTags()" class="btn btn-primary">Print</button> -->
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
+<div class="container printArea align-middle delivCard">
+  <div class="row">
+    <div class="col-9">
+      <strong>
+        <h1>HS (LAE) DELIVERY</h1>
+      </strong>
+    </div>
+    <div class="col-3">
+      <h6 style="text-align: right;vertical-align: middle;margin-top: 30px;">{{deliveryID?.transport}}</h6>
+    </div>
+    <div class="col-12">
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <!--  -->
+    <div class="col-2">
+      <img src="../../../../assets/images/logo.png" alt="">
+    </div>
+    <!--  -->
+    <div class="col-7 float-left" style="text-align: center;margin-top:10px">
+      <div class="justify-content-center">
+        <ngx-barcode [bc-element-type]="elementType" [bc-value]="docId" [bc-format]="format" [bc-line-color]="lineColor"
+          [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions"
+          [bc-font]="font" [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin"
+          [bc-font-size]="fontSize" [bc-background]="background" [bc-margin]="margin" [bc-margin-top]="marginTop"
+          [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
+      </div>
+    </div>
+    <!--  -->
+    <div class="col-3 justify-content-center">
+      <ngx-qrcode [elementType]="QRelementType" [errorCorrectionLevel]="QRcorrectionLevel"
+        [value]="'https://hs-lae-stkctl.web.app/component/logistics/scanner/'+docId" errorCorrectionLevel="L">
+      </ngx-qrcode>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>SO NUMBER</th>
+            <th>DD NUMBER</th>
+            <th>INV NUMBER</th>
+            <th>SKU</th>
+            <th>QTY</th>
+            <th>VEH</th>
+            <th>DRIVER</th>
+            <th>TRUCK CREW</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tdBold">{{deliveryID?.so_number}}</td>
+            <td class="tdBold">{{deliveryID?.dd_number}}</td>
+            <td class="tdBold">{{deliveryID?.inv_number}}</td>
+            <td class="tdBold">
+              <div *ngFor="let sku of deliveryID?.sku">
+                {{sku.skuCode}}
+              </div>
+            </td>
+            <td class="tdBold">
+              <div *ngFor="let sku of deliveryID?.sku">
+                {{sku.qty}}
+              </div>
+            </td>
+            <td class="tdBold">{{deliveryID?.vehicle}}</td>
+            <td class="tdBold">{{deliveryID?.driver}}</td>
+            <td class="tdBold">{{deliveryID?.crew}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>SO</th>
+            <th>DD</th>
+            <th>INV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{deliveryID?.date.toMillis() | date: "dd / MM / YY HH:MM a"}} <br>
+              {{deliveryID?.user}}
+            </td>
+            <td>{{deliveryID?.ddTime.toMillis() | date: "dd / MM / YY HH:MM a"}} <br>
+              {{deliveryID?.user}}
+            </td>
+            <td>{{deliveryID?.invTime.toMillis() | date: "dd / MM / YY HH:MM a"}} <br>
+              {{deliveryID?.user}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

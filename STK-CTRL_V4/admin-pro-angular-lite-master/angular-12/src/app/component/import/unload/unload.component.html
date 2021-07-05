@@ -1,0 +1,22 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>UNLOADING</a>
+    <ng-template ngbNavContent>
+      <app-unloading></app-unloading>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Two</a>
+    <ng-template ngbNavContent>
+      sdfsdfsedfd
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Three</a>
+    <ng-template ngbNavContent>
+      sdfsefsef
+    </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink>EX-WH STOCKS (ALL)</a>
+            <ng-template ngbNavContent>
+              <p>
+                <app-exwhstock></app-exwhstock>
+              </p>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink>EX-WH STOCKS (Ready to unload)</a>
+            <ng-template ngbNavContent>
+              <p>
+                <app-readytounload></app-readytounload>
+              </p>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3">
+            <a ngbNavLink>INSURANCE CLAIM</a>
+            <ng-template ngbNavContent>
+              <p>Space for Insurace component</p>
+            </ng-template>
+          </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+
+        <button type="button" [routerLink]="['/component/import/addshipment']" class="btn btn-primary">Add
+          shipment</button>
+
+      </div>
+    </div>
+  </div>

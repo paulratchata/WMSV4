@@ -1,0 +1,57 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">SHIPMENT</th>
+      <th scope="col">CT-NUM</th>
+      <th scope="col">STACK</th>
+      <th scope="col">SKU</th>
+      <th scope="col">QTY</th>
+      <th scope="col">ATTCH</th>
+      <th scope="col">QTY</th>
+      <th scope="col">FUM SCHED</th>
+      <th scope="col">DFT</th>
+      <th scope="col">NAQ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of exwhStock">
+      <th scope="row">1</th>
+      <td>{{item.shipmentNumber}}</td>
+      <td>{{item.containerNumber}}</td>
+      <td>{{item.stack}}</td>
+      <td>{{item.sku}}</td>
+      <td>{{item.qty}}</td>
+      <td>{{item.attachment}}</td>
+      <td>{{item.attchQty}}</td>
+      <td>null</td>
+      <td>null</td>
+      <td *ngIf="item.naqClearance == false; else trueBlock"><span class="badge badge-warning">Pending</span><br><br>
+        <button type="button" (click)="naqRelease(item.shipmentNumber + '_' + item.containerNumber)"
+          class="btn btn-sm btn-success">Release</button>
+      </td>
+      <ng-template #trueBlock>
+        <span class="badge badge-success">Ready to unload</span>
+      </ng-template>
+
+    </tr>
+  </tbody>
+</table>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Are you sure to change NAQIA Clearance status to Release?
+    <button type="button" (click)="naqRelease()" class="btn btn-primary">Confirm NAQ Release</button>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

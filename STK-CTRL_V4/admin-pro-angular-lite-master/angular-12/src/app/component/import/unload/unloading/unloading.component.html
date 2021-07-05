@@ -1,0 +1,31 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">CT-NUM</th>
+      <th scope="col">START D/T</th>
+      <th scope="col">SKU</th>
+      <th scope="col">QTY</th>
+      <th scope="col">ATTCH</th>
+      <th scope="col">QTY</th>
+      <th scope="col">CHF UNLOAD</th>
+      <th scope="col">REPORT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of unloadingConts">
+      <th scope="row">1</th>
+      <td>{{item.containerNumber}}</td>
+      <td>{{item.unloadStart.toMillis() | date}} &nbsp; {{item.unloadStart.toMillis() | date: "HH:MM a"}}</td>
+      <td>{{item.sku}}</td>
+      <td>{{item.qty}}</td>
+      <td>{{item.attachment}}</td>
+      <td>{{item.attchQty}}</td>
+      <td>{{item.cheifUnload}}</td>
+      <td>
+        <button type="button" (click)="unloadReport(item.shipmentNumber + '_' + item.containerNumber)"
+          class="btn btn-sm btn-success">Unload Report</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

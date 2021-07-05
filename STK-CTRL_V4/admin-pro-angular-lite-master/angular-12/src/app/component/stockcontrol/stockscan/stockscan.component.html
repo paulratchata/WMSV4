@@ -1,0 +1,18 @@
+<div class="card" style="width: fit-content;" *ngIf="docData?.status == 'pending'; else scanned">
+  <div class="card-body">
+    <h4 class="card-title">{{docData?.sku}}</h4>
+    <pre style="color: darkgrey;">{{docData.uuid}}</pre>
+    <p>SHIPMENT <strong>{{docData?.shipmentNumber}}</strong></p>
+    <p>CONTAINER NO. <strong>{{docData?.containerNumber}}</strong></p>
+    <p></p>
+    <button type="button" (click)="confirm()" class="btn btn-primary">ACCEPT <i class="fas clipboard-check"></i>
+    </button>
+  </div>
+</div>
+
+<ng-template #scanned>
+  <h2 style="color: chocolate;">
+    THIS TAG ALREADY REGISTERED!
+  </h2> <br>
+  <pre style="color: darkgrey;">{{docData?.uuid}}</pre>
+</ng-template>

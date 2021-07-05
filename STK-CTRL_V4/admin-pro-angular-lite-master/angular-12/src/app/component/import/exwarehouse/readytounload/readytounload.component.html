@@ -1,0 +1,32 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">SHIPMENT</th>
+      <th scope="col">CT-NUM</th>
+      <th scope="col">STACK</th>
+      <th scope="col">SKU</th>
+      <th scope="col">QTY</th>
+      <th scope="col">ATTCH</th>
+      <th scope="col">QTY</th>
+      <th scope="col">FUM SCHED</th>
+      <th scope="col">DFT</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of exwhStock">
+      <th scope="row">1</th>
+      <td>{{item.shipmentNumber}}</td>
+      <td>{{item.containerNumber}}</td>
+      <td>{{item.stack}}</td>
+      <td>{{item.sku}}</td>
+      <td>{{item.qty}}</td>
+      <td>{{item.attachment}}</td>
+      <td>{{item.attchQty}}</td>
+      <td>null</td>
+      <td>null</td>
+      <td><button type="button" (click)="settoUnloading(item.shipmentNumber + '_' + item.containerNumber)"
+          class="btn btn-primary">Unload</button></td>
+  </tbody>
+</table>

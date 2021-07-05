@@ -1,0 +1,23 @@
+<!-- {{tagData | json}} -->
+<nav class="navbar navbar-primary bg-light">
+  <div *ngIf="tagGenNumber > 0 && isClicked == false">
+    <button type="button" (click)="createQR()" class="btn btn-primary">Generate <i class="fas fa-qrcode"></i> </button>
+  </div>
+  <button class="btn btn-primary" type="button" printSectionId="tagsDiv" ngxPrint [useExistingCss]="true">print</button>
+</nav>
+
+
+
+<div class="container-fluid" id="tagsDiv">
+  <div class="col">
+    <div class="row page">
+      <div class="col qr" *ngFor="let item of tagQR">
+        {{item.sku}}
+        <ngx-qrcode elementType="url" [value]="'https://hs-lae-stkctl.web.app/component/stkctrl/stockscan/'+item.uuid"
+          errorCorrectionLevel="L">
+        </ngx-qrcode>
+      </div>
+      SHIPMENT : {{tagData?.shipmentNumber}}&nbsp; CONTAINER NO. :{{tagData?.containerNumber}}
+    </div>
+  </div>
+</div>

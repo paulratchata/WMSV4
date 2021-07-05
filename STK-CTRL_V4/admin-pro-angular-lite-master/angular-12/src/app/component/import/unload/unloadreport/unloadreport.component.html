@@ -1,0 +1,56 @@
+<div class="col">
+  <div class="col-lg-12 col-md-4 sm-3">
+    <!-- Card -->
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">UNLOAD REPORT {{contData?.containerNumber}}</h4>
+        <div class="card-body">
+
+          <form [formGroup]="unloadForm">
+            <div class="col-lg-6">
+              <p class="card-text">
+                SKU : <strong>{{contData?.sku}} | &nbsp;QTY {{contData?.qty}}</strong>
+              </p>
+              <p class="card-text">
+                ATTACHMENT : <strong>{{contData?.attachment}} | &nbsp;QTY {{contData?.attchQty}}</strong>
+              </p>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="partialUnload">
+                <label class="custom-control-label" for="customCheck1">PARTIAL UNLOAD</label>
+              </div>
+            </div>
+            <br>
+            <hr>
+            <div class="row" *ngIf="unloadForm.value.partialUnload == true">
+              <div class="col-lg-2">
+                <label for="sku">SKU</label>
+                <input disabled type="text" class="form-control" id="sku" placeholder="sku" formControlName="sku">
+                <small id="sku" class="form-text text-muted">UNLOADED SKU</small>
+              </div>
+              <div class="col-lg-2">
+                <label for="qty">QTY</label>
+                <input type="number" class="form-control" id="qty" placeholder="QTY" formControlName="qty">
+              </div>
+              <div class="col-lg-2">
+                <label for="sku">ATTACHMENT</label>
+                <input disabled type="text" class="form-control" id="attachment" placeholder="ATTACHMENT"
+                  formControlName="attachment">
+                <small id="attachment" class="form-text text-muted">UNLOADED ATTACHMENT</small>
+              </div>
+              <div class="col-lg-2">
+                <label for="qty">QTY</label>
+                <input type="number" class="form-control" id="attchQty" placeholder="QTY" formControlName="attchQty">
+              </div>
+            </div>
+          </form>
+
+
+        </div>
+        <button (click)="submitHandler()" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    <!-- Card -->
+  </div>
+</div>
+
+<!-- {{contForm.value | json}} -->

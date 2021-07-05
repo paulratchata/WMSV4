@@ -1,0 +1,96 @@
+<form [formGroup]="shipmentForm">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <input class="texEntry" type="text" class="form-control" placeholder="Ex. W123456" aria-label="shipment Number"
+          formControlName="shipmentNumber" id="shipment">
+      </div>
+      <div class="col-3">
+        <label for="shipping"></label>
+        <select class="custom-select" id="shipping" formControlName="shippingAgent">
+          <option value="" disabled>Choose Agent</option>
+          <option value="ANL">ANL</option>
+          <option value="ANL">MARIANA</option>
+          <option value="ANL">NEW PAC</option>
+        </select>
+      </div>
+    </div>
+    <!--  -->
+    <hr>
+    <div class="row">
+      <div class="col-3">
+        <label for="loadingDate">LOADING DATE</label>
+        <ngb-datepicker id="loadingDate" #dp [(ngModel)]="model" (navigate)="date = $event.next"
+          formControlName="loadingDate">
+        </ngb-datepicker>
+      </div>
+      <div class="col-3">
+        <label for="eta">ETA</label>
+        <ngb-datepicker id="eta" #dp [(ngModel)]="model" (navigate)="date = $event.next" formControlName="eta">
+        </ngb-datepicker>
+      </div>
+    </div>
+
+
+    <div formArrayName="containersForm" style="width: 80%;margin-left: 60px;" class="form-inline">
+
+      <div *ngFor="let container of containerList.controls;let i=index" [formGroupName]="i">
+
+        <span class="badge badge-primary">CONTAINER {{i+1}}</span><br><br>
+        <div class="input-group mb-3">
+          <label class="sr-only" for="containerNumber">Container No.</label>
+          <input type="text" class="form-control mb-2 mr-sm-2" id="containerNumber" placeholder="Container Number"
+            formControlName="containerNumber">
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+
+              <label class="input-group-text" for="sku">SKU</label>
+              <select style="margin-right: 20px;" class="custom-select" id="sku" formControlName="sku">
+                <option *ngFor="let sku of skuList" [value]="sku">{{sku}}</option>
+              </select>
+            </div>
+          </div>
+          <input type="number" min="1" max="3000" class="form-control mb-2 mr-sm-2" id="qty" placeholder="QTY"
+            formControlName="qty">
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="attachment">ATTCH</label>
+              <select style="margin-right: 20px;" class="custom-select" id="attachment" formControlName="attachment">
+                <option *ngFor="let sku of skuList" [value]="sku">{{sku}}</option>
+              </select>
+            </div>
+          </div>
+          <input style="width: 200px;" type="number" min="1" max="3000" class="form-control mb-2 mr-sm-2" id="attchQty"
+            placeholder="QTY" formControlName="attchQty">
+        </div>
+
+        <button type="button" (click)="removeCont(i)" class="btn btn-sm btn-warning">Remove</button><br><br>
+
+        <hr>
+      </div>
+
+    </div>
+
+    <br>
+    <div class="row">
+      <button type="button" (click)="addCont()" class="btn btn-primary">Add container</button>
+    </div>
+    <br>
+
+    <br>
+    <div class="row" style="float: right;">
+      <button type="button" (click)="submit()" class="btn btn-primary">submit</button>
+    </div>
+    <br>
+
+
+  </div>
+
+</form>
+<!-- {{shipmentForm.value | json}} -->

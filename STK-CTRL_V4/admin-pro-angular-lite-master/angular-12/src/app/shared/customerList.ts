@@ -1,0 +1,18 @@
+export const customerLAE = [
+  "RH Trading Limited - (Lae)",
+  "Seeto Kui (Holdings) LTD - (Lae)",
+  "Sinowell International (PNG) Ltd. - (Lae)",
+  "Star Mountain Paper Co Operation - (Lae)",
+  "Super Value Store - (Lae)",
+  "Zenara Limited. - (Lae)",
+  "Cash Customer-(LAE)",
+  "DURGA PACIFIC LIMITED - (LAE)",
+  "G & M FLORES HOSPITAL LTD. - (Lae)",
+  "Leannes Bakeshop - (Lae)",
+  "Salu Investments - (Lae)",
+  "Seng Da Trading Limitied - (Lae)",
+  "Menyamya High School - (LAE)",
+  "Morobe disaster office - (Lae)",
+  "EAST WEST - JV PNG INVESTMENT CONSTRUCTION (Lae)",
+  "Morobe Governers Officer (LAE)",
+];

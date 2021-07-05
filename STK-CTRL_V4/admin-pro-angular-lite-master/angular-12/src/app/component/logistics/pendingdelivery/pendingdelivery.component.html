@@ -1,0 +1,140 @@
+<form>
+  <div class="form-group form-inline">
+    search (experiment): <input class="form-control ml-2 textEntry" type="text" [formControl]="filter" />
+  </div>
+</form>
+
+<table class="table-dark table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>DATE</th>
+      <th>CUSTOMER</th>
+      <th>SO No.</th>
+      <th>INV</th>
+      <th>DD</th>
+      <th>SKU</th>
+      <th>QTY</th>
+      <th>UNIT</th>
+      <th>DELVERY</th>
+      <th>STATUS</th>
+      <th>TASK</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let so of so_data; index as s">
+      <th>{{s+1}}</th>
+      <td>{{so.date.toMillis() | date: 'dd/MM/YY'}}</td>
+      <td>{{so.customer}}</td>
+      <td>{{so.so_number}}</td>
+      <td>
+        <div *ngIf="so.inv_number == null;else invBlock">
+          <button (click)="open(addINV, so.docId)" type="button" class="btn btn-outline-info">update INV</button>
+        </div>
+        <ng-template #invBlock>
+          <ngb-highlight [result]="so.inv_number" [term]="filter.value"></ngb-highlight>
+          <!-- {{so.inv_number}} -->
+        </ng-template>
+      </td>
+      <!--  -->
+      <td>
+        <div *ngIf="so.dd_number == null;else ddBlock">
+          <button (click)="open(addDD, so.docId)" type="button" class="btn btn-outline-info">update DD</button>
+        </div>
+        <ng-template #ddBlock>
+          <ngb-highlight [result]="so.dd_number" [term]="filter.value"></ngb-highlight>
+          <!-- {{so.dd_number}} -->
+        </ng-template>
+      </td>
+      <td>
+        <div *ngFor="let item of so.sku; index as i">
+          {{item.skuCode}}
+        </div>
+      </td>
+      <td>
+        <div *ngFor="let item of so.sku; index as i">
+          {{item.qty}}
+        </div>
+      </td>
+      <td>
+        <div *ngFor="let item of so.sku; index as i">
+          {{item.unit}}
+        </div>
+      </td>
+      <td>{{so.transport}}</td>
+      <td>{{so.status}}</td>
+      <td *ngIf="so.inv_number && so.dd_number != null">
+        <button *ngIf="so.driver != null" style="margin-right: 5px;margin-bottom: 5px;" (click)="print(so.docId)"
+          type="button" class="btn btn-outline-success" aria-label="Close"><i class="fas fa-print"></i></button>
+        <button *ngIf="so.driver == null" (click)="open(addDriver, so.docId)" type="button" class="btn btn-outline-info"
+          aria-label="Close"><i class="fas fa-truck-moving"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- MODAL -->
+<ng-template #addINV let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">UPDATE INV</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-8">
+      <form [formGroup]="updateForm">
+        <label for="inv_number">INV NUMBER</label>
+        <input class="form-control textEntry" type="text" id="inv_number" formControlName="inv_number">
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('AddINV')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #addDD let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">UPDATE DD</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-8">
+      <form [formGroup]="updateForm">
+        <label for="dd_number">DD NUMBER</label>
+        <input class="form-control textEntry" type="text" id="dd_number" formControlName="dd_number">
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('AddDD')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #addDriver let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">ASSIGN DRIVER & CREW</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-8">
+      <form [formGroup]="assignDriverForm">
+        <label for="driver">DRIVER</label>
+        <input class="form-control textEntry" type="text" id="driver" formControlName="driver">
+        <label for="crew">CREW</label>
+        <input class="form-control textEntry" type="text" id="crew" formControlName="crew">
+        <label for="vehicle">VEH</label>
+        <input class="form-control textEntry" type="text" id="vehicle" formControlName="vehicle">
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('AssignDriver')">Save</button>
+  </div>
+</ng-template>
